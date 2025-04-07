@@ -1,5 +1,9 @@
 package com.example.springboot;
 
+import com.example.springboot.entity.Article;
+import com.example.springboot.entity.User;
+import com.example.springboot.repository.ArticleRepository;
+import com.example.springboot.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
