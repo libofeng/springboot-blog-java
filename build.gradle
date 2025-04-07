@@ -1,6 +1,9 @@
 plugins {
-	id 'org.springframework.boot' version '3.4.4'
-	id 'java'
+	id("java")
+	id("org.springframework.boot") version "3.4.4"
+	id("io.spring.dependency-management") version "1.1.7"
+	// scan dependency version update: ./gradlew dependencyUpdates
+	id("com.github.ben-manes.versions") version "0.52.0"
 }
 
 apply plugin: 'io.spring.dependency-management'
@@ -9,7 +12,9 @@ group = 'com.example'
 version = '0.0.1-SNAPSHOT'
 
 java {
-	sourceCompatibility = '21'
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(21)
+	}
 }
 
 repositories {
@@ -17,13 +22,17 @@ repositories {
 }
 
 dependencies {
-	// tag::actuator[]
+	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+	implementation("org.springframework.boot:spring-boot-starter-mustache")
+	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
-	// end::actuator[]
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	// tag::tests[]
-	testImplementation('org.springframework.boot:spring-boot-starter-test')
-	// end::tests[]
+	developmentOnly("org.springframework.boot:spring-boot-devtools")
+	runtimeOnly("com.h2database:h2")
+	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	testImplementation("org.junit.jupiter:junit-jupiter-api")
+	testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
+	testImplementation("com.ninja-squad:springmockk:4.0.2")
+	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
 test {
